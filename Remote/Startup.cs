@@ -13,7 +13,7 @@
             // TODO: SSL Handler
 
             // authentication
-            config.MessageHandlers.Add(new Shield.PresharedKeyAuthorizer());
+            config.MessageHandlers.Add(new Shield.AuthenticationHandler());
 
             // routing
             config.Routes.MapHttpRoute(

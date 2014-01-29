@@ -15,7 +15,7 @@
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-                client.DefaultRequestHeaders.Add("Authorization", "Basic");
+                client.DefaultRequestHeaders.Add("Authorization", "Basic JKHDLKSJHLKSJDH");
 
                 var response = client.GetAsync(baseAddress + "files").Result;
                 

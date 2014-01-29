@@ -2,14 +2,22 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
+    using System.Web.Http.Controllers;
 
     [Authorize]
     public class FilesController : ApiController
     {
+
         public IEnumerable<string> Get()
         {
-            return new string[] { "Secure File A", "Secure File B" };
+            return Data.Files.GetNames();
+        }
+
+        public string Get(int id)
+        {
+            
         }
     }
 }

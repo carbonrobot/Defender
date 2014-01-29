@@ -2,6 +2,7 @@
 {
     using System;
     using Microsoft.Owin.Hosting;
+    using WebApi;
 
     public class Program
     {
@@ -9,7 +10,7 @@
         {
             // host the api on port 9000
             var baseAddress = "http://localhost:9000/";
-            using (WebApp.Start<WebApi.Startup>(url: baseAddress))
+            using (WebApp.Start<Startup>(baseAddress))
             {
                 Console.WriteLine("Server online at " + baseAddress);
                 Console.ReadLine();
