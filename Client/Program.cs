@@ -12,11 +12,16 @@
             
             // test the api
             var baseAddress = "http://localhost:9000/";
-            var client = new HttpClient();
-            var response = client.GetAsync(baseAddress + "Files").Result;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("Authorization", "Basic");
 
-            Console.WriteLine(response);
-            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+                var response = client.GetAsync(baseAddress + "files").Result;
+                
+                Console.WriteLine(response);
+                Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+            }
 
             Console.ReadLine();
         }

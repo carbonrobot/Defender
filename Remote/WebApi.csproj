@@ -78,6 +78,10 @@
       <Project>{5b749a24-faca-4b5e-a2c1-69cbdde3a421}</Project>
       <Name>Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shield\Shield.csproj">
+      <Project>{e341f78c-5d84-4aab-b0a1-1dbee2bc6577}</Project>
+      <Name>Shield</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.Web.Http;
 
-    public class Files : ApiController
+    [Authorize]
+    public class FilesController : ApiController
     {
         public IEnumerable<string> Get()
         {
