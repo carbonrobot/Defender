@@ -1,8 +1,13 @@
 ﻿namespace WebApi
 {
     using System;
+    using System.Linq;
+    using System.Collections.Generic;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Owin;
+    using Shield.WebApi;
 
     public class Startup
     {
@@ -10,10 +15,11 @@
         {
             var config = new HttpConfiguration();
 
-            // TODO: SSL Handler
-
-            // authentication
-            config.MessageHandlers.Add(new Shield.AuthenticationHandler());
+            //// authentication
+            //config.MessageHandlers.Add(new BasicAuthenticationHandler((usr, pwd) =>
+            //{
+            //    return usr == pwd;
+            //}));
 
             // routing
             config.Routes.MapHttpRoute(
@@ -22,7 +28,25 @@
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            // middleware
+            appBuilder.UseBasicAuthentication(new Thinktecture.IdentityModel.Owin.BasicAuthenticationOptions("Basic", ValidateUser));
+
             appBuilder.UseWebApi(config);
+        }
+
+        private Task<IEnumerable<Claim>> ValidateUser(string id, string secret)
+        {
+            if (id == secret)
+            {
+                var claims = new List<Claim>(){
+                    new Claim(ClaimTypes.NameIdentifier, id),
+                    new Claim(ClaimTypes.Name, "Bob"),
+                    new Claim(ClaimTypes.Role, "Administrator")
+                };
+                return Task.FromResult<IEnumerable<Claim>>(claims);
+            }
+
+            return Task.FromResult<IEnumerable<Claim>>(null);
         }
     }
 }

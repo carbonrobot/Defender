@@ -1,4 +1,4 @@
-﻿namespace Shield
+﻿namespace Shield.WebApi
 {
     using System;
     using System.Collections.Generic;
@@ -9,27 +9,28 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web;
-    using System.Web.Http.Controllers;
-    using System.Web.Http.Hosting;
 
     /// <summary>
     /// Validates HTTP Requests using a preshared key
     /// </summary>
     public class AuthenticationHandler : DelegatingHandler
     {
+        protected virtual bool CheckAccess(HttpRequestMessage request)
+        {
+            return false;
+        }
+
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            // ssl module
-            // psk module
-            // ticket module
+            if (CheckAccess(request))
+            {
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Name, "superstar"));
 
-
-            var claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Name, "superstar"));
-
-            var identity = new ClaimsIdentity(claims, "PresharedKey");
-            var principal = new ClaimsPrincipal(identity);
-            SetPrincipal(request, principal);
+                var identity = new ClaimsIdentity(claims, "PresharedKey");
+                var principal = new ClaimsPrincipal(identity);
+                SetPrincipal(request, principal);
+            }
 
             return base.SendAsync(request, cancellationToken);
         }
@@ -46,6 +47,5 @@
             // for all others
             Thread.CurrentPrincipal = principal;
         }
-
     }
 }

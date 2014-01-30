@@ -7,23 +7,39 @@
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Press any key to begin the web api request");
+            Console.WriteLine("Press [Enter] to begin the web api request");
             Console.ReadLine();
             
-            // test the api
             var baseAddress = "http://localhost:9000/";
+
+            Console.WriteLine("Using basic authentication");
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
-                client.DefaultRequestHeaders.Add("Authorization", "Basic JKHDLKSJHLKSJDH");
+                client.SetBasicAuthentication("banana", "banana");
 
                 var response = client.GetAsync(baseAddress + "files").Result;
-                
-                Console.WriteLine(response);
-                Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+                HandleResponse(response);
+            }
+
+            Console.WriteLine("Using shared key authentication");
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.SetSharedKey("banana");
+
+                var response = client.GetAsync(baseAddress + "files").Result;
+                HandleResponse(response);
             }
 
             Console.ReadLine();
         }
+
+        private static void HandleResponse(HttpResponseMessage response)
+        {
+            Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+        }
+
+
     }
 }
