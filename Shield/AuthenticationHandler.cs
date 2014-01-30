@@ -9,6 +9,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web;
+    using System.Web.Http.Controllers;
+    using System.Web.Http.Hosting;
 
     /// <summary>
     /// Validates HTTP Requests using a preshared key
@@ -27,6 +29,7 @@
 
             var identity = new ClaimsIdentity(claims, "PresharedKey");
             var principal = new ClaimsPrincipal(identity);
+            SetPrincipal(request, principal);
 
             return base.SendAsync(request, cancellationToken);
         }
@@ -42,7 +45,7 @@
 
             // for all others
             Thread.CurrentPrincipal = principal;
-            
         }
+
     }
 }

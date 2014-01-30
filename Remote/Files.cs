@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
+    using System.Security.Principal;
     using System.Web.Http;
     using System.Web.Http.Controllers;
 
@@ -15,9 +17,5 @@
             return Data.Files.GetNames();
         }
 
-        public string Get(int id)
-        {
-            
-        }
     }
 }
