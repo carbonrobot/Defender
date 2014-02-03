@@ -10,14 +10,9 @@ namespace System.Net.Http
             client.DefaultRequestHeaders.Authorization = new BasicAuthenticationHeaderValue(userName, password);
         }
 
-        public static void SetSharedKey(this HttpClient client, string token)
+        public static void SetSharedKey(this HttpClient client, string sharedKey)
         {
-            client.SetToken("SharedKey", token);
-        }
-
-        public static void SetToken(this HttpClient client, string scheme, string token)
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme, token);
+            client.DefaultRequestHeaders.Authorization = new SharedKeyAuthenticationHeaderValue(sharedKey);
         }
     }
 }

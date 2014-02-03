@@ -29,7 +29,9 @@
             );
 
             // middleware
-            appBuilder.UseBasicAuthentication(new Thinktecture.IdentityModel.Owin.BasicAuthenticationOptions("Basic", ValidateUser));
+            //appBuilder.UseBasicAuthentication(new Thinktecture.IdentityModel.Owin.BasicAuthenticationOptions("Basic", ValidateUser));
+
+            appBuilder.UseSharedKeyAuthentication(new SharedKeyAuthenticationOptions("123456789"));
 
             appBuilder.UseWebApi(config);
         }
