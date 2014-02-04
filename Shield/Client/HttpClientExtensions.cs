@@ -14,5 +14,10 @@ namespace System.Net.Http
         {
             client.DefaultRequestHeaders.Authorization = new SharedKeyAuthenticationHeaderValue(sharedKey);
         }
+
+	    public static void AcceptJson(this HttpClient client)
+	    {
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+	    }
     }
 }

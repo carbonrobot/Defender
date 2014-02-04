@@ -1,15 +1,15 @@
-﻿namespace Shield.WebApi
+﻿namespace Shield.Owin
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Security.Claims;
+    using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Infrastructure;
 
-    public class SharedKeyAuthenticationHandler : Microsoft.Owin.Security.Infrastructure.AuthenticationHandler<SharedKeyAuthenticationOptions>
+    public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticationOptions>
     {
-        public SharedKeyAuthenticationHandler(SharedKeyAuthenticationOptions options)
+        public BasicAuthenticationHandler(BasicAuthenticationOptions options)
         {
         }
 
@@ -20,7 +20,7 @@
                 var challenge = Helper.LookupChallenge(Options.AuthenticationType, Options.AuthenticationMode);
                 if (challenge != null)
                 {
-                    Response.Headers.AppendValues("WWW-Authenticate", "SharedKey");
+                    Response.Headers.AppendValues("WWW-Authenticate", "Basic");
                 }
             }
 
@@ -30,18 +30,17 @@
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
             var authzValue = Request.Headers.Get("Authorization");
-            if (string.IsNullOrEmpty(authzValue) || !authzValue.StartsWith("SharedKey ", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(authzValue) || !authzValue.StartsWith("Basic ", StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
-            var token = authzValue.Substring("SharedKey ".Length).Trim();
-            if (token == Options.SharedKey)
+            var token = authzValue.Substring("Basic ".Length).Trim();
+            var userpass = Encoding.UTF8.GetString(Convert.FromBase64String(token)).Split(':');
+            
+            var claims = await Options.KeyValidator(userpass[0], userpass[1]);
+            if (claims != null)
             {
-                var claims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.Name, "Test")
-                };
                 var id = new ClaimsIdentity(claims, Options.AuthenticationType);
                 return new AuthenticationTicket(id, new AuthenticationProperties());
             }

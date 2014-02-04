@@ -83,16 +83,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Thinktecture.IdentityModel.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Thinktecture.IdentityModel.Core.1.1.0\lib\net45\Thinktecture.IdentityModel.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Thinktecture.IdentityModel.Hawk">
-      <HintPath>..\packages\Thinktecture.IdentityModel.Hawk.1.0.0\lib\net45\Thinktecture.IdentityModel.Hawk.dll</HintPath>
-    </Reference>
-    <Reference Include="Thinktecture.IdentityModel.Owin">
-      <HintPath>..\packages\Thinktecture.IdentityModel.Owin.1.0.0\lib\net45\Thinktecture.IdentityModel.Owin.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,6 +90,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

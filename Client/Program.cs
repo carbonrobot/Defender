@@ -15,7 +15,7 @@
             Console.WriteLine("Using basic authentication");
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.AcceptJson();
                 client.SetBasicAuthentication("banana", "banana");
 
                 var response = client.GetAsync(baseAddress + "files").Result;
@@ -25,8 +25,8 @@
             Console.WriteLine("Using shared key authentication");
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-                client.SetSharedKey("banana");
+                client.AcceptJson();
+                client.SetSharedKey("123456789");
 
                 var response = client.GetAsync(baseAddress + "files").Result;
                 HandleResponse(response);
@@ -38,6 +38,7 @@
         private static void HandleResponse(HttpResponseMessage response)
         {
             Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+            Console.WriteLine();
         }
 
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Owin;
-using Microsoft.Owin.Security.Infrastructure;
-
-namespace Shield.WebApi
+﻿namespace Shield.Owin
 {
+    using Microsoft.Owin;
+    using Microsoft.Owin.Security.Infrastructure;
+
     public class SharedKeyAuthenticationMiddleware : AuthenticationMiddleware<SharedKeyAuthenticationOptions>
     {
         public SharedKeyAuthenticationMiddleware(OwinMiddleware next, SharedKeyAuthenticationOptions options)

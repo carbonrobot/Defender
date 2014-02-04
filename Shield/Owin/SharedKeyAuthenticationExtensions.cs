@@ -1,8 +1,8 @@
-﻿using System;
-using Shield.WebApi;
-
-namespace Owin
+﻿namespace Owin
 {
+    using System;
+    using Shield.Owin;
+
     public static class SharedKeyAuthenticationExtensions
     {
         public static IAppBuilder UseSharedKeyAuthentication(this IAppBuilder app, SharedKeyAuthenticationOptions options)
