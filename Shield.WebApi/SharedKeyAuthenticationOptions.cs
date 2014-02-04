@@ -8,7 +8,7 @@
     public class SharedKeyAuthenticationOptions : AuthenticationOptions
     {
         public SharedKeyAuthenticationOptions(Func<string, Task<IEnumerable<Claim>>> keyValidator)
-            : base(AuthenticationTypes.SharedKey)
+            : base(Shield.AuthenticationTypes.SharedKey)
         {
             this.KeyValidator = keyValidator;
         }

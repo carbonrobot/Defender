@@ -37,6 +37,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -58,6 +60,7 @@
     <Compile Include="BasicAuthenticationExtensions.cs" />
     <Compile Include="BasicAuthenticationHandler.cs" />
     <Compile Include="BasicAuthenticationOptions.cs" />
+    <Compile Include="Authorization\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="SharedKeyAuthenticationExtensions.cs" />
     <Compile Include="SharedKeyAuthenticationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,36 +21,15 @@
                 new { id = RouteParameter.Optional }
             );
 
-            appBuilder.UseBasicAuthentication(new Shield.Owin.BasicAuthenticationOptions(ValidateUser));
-            appBuilder.UseSharedKeyAuthentication(new Shield.Owin.SharedKeyAuthenticationOptions(ValidateKey));
+            appBuilder.UseBasicAuthentication(
+                new Shield.Owin.BasicAuthenticationOptions(
+                    AuthenticationManager.ValidateUser));
+            
+            appBuilder.UseSharedKeyAuthentication(
+                new Shield.Owin.SharedKeyAuthenticationOptions(
+                    AuthenticationManager.ValidateKey));
 
             appBuilder.UseWebApi(config);
-        }
-
-        private Task<IEnumerable<Claim>> ValidateUser(string id, string secret)
-        {
-            if (id == secret)
-                return Task.FromResult<IEnumerable<Claim>>(CreateFakeClaims());
-
-            return Task.FromResult<IEnumerable<Claim>>(null);
-        }
-
-        private Task<IEnumerable<Claim>> ValidateKey(string key)
-        {
-            if (key == "123456789")
-                return Task.FromResult<IEnumerable<Claim>>(CreateFakeClaims());
-
-            return Task.FromResult<IEnumerable<Claim>>(null);
-        }
-
-        private IEnumerable<Claim> CreateFakeClaims()
-        {
-            return new List<Claim>()
-                {
-                    new Claim(ClaimTypes.NameIdentifier, "Id"),
-                    new Claim(ClaimTypes.Name, "Bob"),
-                    new Claim(ClaimTypes.Role, "Administrator")
-                };
         }
     }
 }
