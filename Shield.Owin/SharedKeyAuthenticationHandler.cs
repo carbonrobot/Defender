@@ -4,8 +4,9 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Infrastructure;
 
-    public class SharedKeyAuthenticationHandler : Microsoft.Owin.Security.Infrastructure.AuthenticationHandler<SharedKeyAuthenticationOptions>
+    public class SharedKeyAuthenticationHandler : AuthenticationHandler<SharedKeyAuthenticationOptions>
     {
         public SharedKeyAuthenticationHandler(SharedKeyAuthenticationOptions options)
         {
@@ -18,7 +19,7 @@
                 var challenge = Helper.LookupChallenge(Options.AuthenticationType, Options.AuthenticationMode);
                 if (challenge != null)
                 {
-                    Response.Headers.AppendValues("WWW-Authenticate", "SharedKey");
+                    Response.Headers.AppendValues("WWW-Authenticate", AuthenticationTypes.SharedKey);
                 }
             }
 
@@ -27,13 +28,14 @@
 
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
+            var authzType = AuthenticationTypes.SharedKey + " ";
             var authzValue = Request.Headers.Get("Authorization");
-            if (string.IsNullOrEmpty(authzValue) || !authzValue.StartsWith("SharedKey ", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(authzValue) || !authzValue.StartsWith(authzType, StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
-            var key = authzValue.Substring("SharedKey ".Length).Trim();
+            var key = authzValue.Substring(authzType.Length).Trim();
             var claims = await Options.KeyValidator(key);
             if (claims != null)
             {

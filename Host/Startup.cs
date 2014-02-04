@@ -39,8 +39,8 @@
         {
             if (key == "123456789")
                 return Task.FromResult<IEnumerable<Claim>>(CreateFakeClaims());
-         
-            return null;
+
+            return Task.FromResult<IEnumerable<Claim>>(null);
         }
 
         private IEnumerable<Claim> CreateFakeClaims()

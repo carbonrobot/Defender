@@ -12,12 +12,13 @@
         public Func<string, Task<IEnumerable<Claim>>> KeyValidator;
 
         public SharedKeyAuthenticationOptions()
-            : base("SharedKey")
+            : base(AuthenticationTypes.SharedKey)
         {
 
         }
 
-        public SharedKeyAuthenticationOptions(Func<string, Task<IEnumerable<Claim>>> validateKey) : base("SharedKey")
+        public SharedKeyAuthenticationOptions(Func<string, Task<IEnumerable<Claim>>> validateKey)
+            : base(AuthenticationTypes.SharedKey)
         {
             this.KeyValidator = validateKey;
         }

@@ -11,12 +11,12 @@
         public Func<string, string, Task<IEnumerable<Claim>>> KeyValidator;
 
         public BasicAuthenticationOptions()
-            : base("Basic")
+            : base(AuthenticationTypes.Basic)
         {
         }
 
         public BasicAuthenticationOptions(Func<string, string, Task<IEnumerable<Claim>>> validateKey)
-            : base("Basic")
+            : base(AuthenticationTypes.Basic)
         {
             this.KeyValidator = validateKey;
         }

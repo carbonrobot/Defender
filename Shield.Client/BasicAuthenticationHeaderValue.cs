@@ -3,11 +3,12 @@ namespace System.Net.Http
     using System;
     using System.Net.Http.Headers;
     using System.Text;
+    using Shield;
 
 	public class BasicAuthenticationHeaderValue : AuthenticationHeaderValue
     {
         public BasicAuthenticationHeaderValue(string userName, string password)
-            : base("Basic", EncodeCredential(userName, password)){
+            : base(AuthenticationTypes.Basic, EncodeCredential(userName, password)){
         }
 
         private static string EncodeCredential(string userName, string password)
