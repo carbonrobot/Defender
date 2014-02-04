@@ -1,4 +1,4 @@
-﻿namespace Host
+﻿namespace ConsoleHost
 {
     using System;
     using Microsoft.Owin.Hosting;

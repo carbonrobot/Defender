@@ -1,19 +1,20 @@
-﻿namespace WebApi
+﻿namespace ConsoleHost
 {
     using System.Collections.Generic;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using System.Web.Http.Dispatcher;
     using Owin;
 
     public class Startup
     {
         public void Configuration(IAppBuilder appBuilder)
         {
+            // load a type in the webapi assembly so the controllers get loaded up
+            var c = typeof(WebApi.FilesController);
+
             var config = new HttpConfiguration();
-
-            config.UseBasicAuthentication(new Shield.WebApi.BasicAuthenticationOptions(ValidateUser));
-
             config.Routes.MapHttpRoute(
                 "Default", 
                 "{controller}/{id}",
