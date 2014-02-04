@@ -8,7 +8,7 @@
     public class BasicAuthenticationOptions : AuthenticationOptions
     {
         public BasicAuthenticationOptions(Func<string, string, Task<IEnumerable<Claim>>> keyValidator)
-            : base("Basic")
+            : base(AuthenticationTypes.Basic)
         {
             this.KeyValidator = keyValidator;
         }
